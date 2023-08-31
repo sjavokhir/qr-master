@@ -1,0 +1,34 @@
+CREATE TABLE History(
+    id TEXT NOT NULL PRIMARY KEY,
+    timestamp INTEGER NOT NULL,
+    history_type INTEGER NOT NULL,
+    generate_mode INTEGER NOT NULL,
+    encode TEXT NOT NULL,
+    decode TEXT NOT NULL,
+    selected_pattern INTEGER NOT NULL,
+    selected_corner INTEGER NOT NULL,
+    selected_dot INTEGER NOT NULL,
+    pattern_dot_hex TEXT NOT NULL,
+    pattern_background_hex TEXT NOT NULL,
+    frame_hex TEXT NOT NULL,
+    frame_dot_hex TEXT NOT NULL,
+    selected_logo TEXT NOT NULL,
+    latitude REAL NOT NULL,
+    longitude REAL NOT NULL
+);
+
+getHistory:
+SELECT *
+FROM History
+WHERE history_type = ?;
+
+insert:
+INSERT OR REPLACE
+INTO History(id, timestamp, history_type, generate_mode, encode, decode, selected_pattern, selected_corner, selected_dot, pattern_dot_hex, pattern_background_hex, frame_hex, frame_dot_hex, selected_logo, latitude, longitude)
+VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+
+delete:
+DELETE FROM History WHERE id = ?;
+
+clearAll:
+DELETE FROM History WHERE history_type = ?;

@@ -1,0 +1,70 @@
+[versions]
+
+kotlin = "1.9.0"
+agp = "8.1.1"
+
+kotlin-coroutines = "1.7.3"
+kotlin-datetime = "0.4.0"
+
+android-appcompat = "1.6.1"
+android-camerax = "1.2.3"
+
+compose = "1.5.0"
+compose-activity = "1.7.2"
+compose-uitooling = "1.5.0"
+compose-accompanist-permissions = "0.29.2-rc"
+compose-maps = "2.11.2"
+
+google-material = "1.9.0"
+google-mapsplatform-secrets = "2.0.1"
+google-playservices-maps = "18.1.0"
+google-playservices-location = "21.0.1"
+google-mlkit-barcode = "18.3.0"
+google-zxing = "3.5.1"
+
+koin = "3.4.3"
+sqlDelight = "2.0.0"
+settings = "1.0.0"
+voyager = "1.0.0-rc06"
+
+[libraries]
+
+kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }
+kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlin-coroutines" }
+kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlin-datetime" }
+
+android-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "android-appcompat" }
+android-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "android-camerax" }
+android-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "android-camerax" }
+android-camera-view = { module = "androidx.camera:camera-view", version.ref = "android-camerax" }
+
+compose-uitooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-uitooling" }
+compose-activity = { module = "androidx.activity:activity-compose", version.ref = "compose-activity" }
+compose-accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "compose-accompanist-permissions" }
+compose-maps = { module = "com.google.maps.android:maps-compose", version.ref = "compose-maps" }
+
+google-material = { module = "com.google.android.material:material", version.ref = "google-material" }
+google-playservices-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "google-playservices-maps" }
+google-playservices-location = { module = "com.google.android.gms:play-services-location", version.ref = "google-playservices-location" }
+google-mlkit-barcode = { module = "com.google.android.gms:play-services-mlkit-barcode-scanning", version.ref = "google-mlkit-barcode" }
+google-zxing = { module = "com.google.zxing:core", version.ref = "google-zxing" }
+
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+
+sqlDelight-driver-sqlite = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqlDelight" }
+sqlDelight-driver-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
+sqlDelight-driver-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
+sqlDelight-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }
+
+settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "settings" }
+voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+
+[plugins]
+
+android-application = { id = "com.android.application", version.ref = "agp" }
+multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
+mapsplatform-secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "google-mapsplatform-secrets" }
