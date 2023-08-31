@@ -15,7 +15,7 @@ struct iosApp: App {
 struct ContentView: View {
     var body: some View {
         ComposeView()
-            .ignoresSafeArea(.all, edges: [.top, .bottom])
+            .ignoresSafeArea(.all)
             .preferredColorScheme(.dark)
     }
 }
