@@ -101,11 +101,11 @@ kotlin {
 }
 
 android {
-    namespace = "uz.javokhir.kqr.master"
+    namespace = "uz.javokhir.qr.master"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "uz.javokhir.kqr.master"
+        applicationId = "uz.javokhir.qr.master"
         minSdk = 24
         versionCode = 1
         versionName = "1.0.0"
@@ -131,7 +131,7 @@ sqldelight {
     create("AppDatabase") {
       // Database configuration here.
       // https://cashapp.github.io/sqldelight
-      packageName.set("uz.javokhir.kqr.master.db")
+      packageName.set("uz.javokhir.qr.master.db")
     }
   }
 }

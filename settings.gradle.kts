@@ -1,4 +1,4 @@
-rootProject.name = "kqr-master"
+rootProject.name = "qr-master"
 include(":composeApp")
 
 pluginManagement {
