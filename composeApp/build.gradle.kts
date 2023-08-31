@@ -106,7 +106,7 @@ android {
 
     defaultConfig {
         applicationId = "uz.javokhir.qr.master"
-        minSdk = 24
+        minSdk = 27
         versionCode = 1
         versionName = "1.0.0"
     }

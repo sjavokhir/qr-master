@@ -24,13 +24,13 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:theme="@style/Theme.Qr">
+        android:theme="@style/Theme.Qr.NoActionBar">
         <activity
             android:name=".AppActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="true"
             android:launchMode="singleInstance"
-            android:windowSoftInputMode="stateVisible|adjustResize">
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

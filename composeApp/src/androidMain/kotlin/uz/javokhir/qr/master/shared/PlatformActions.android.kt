@@ -1,10 +1,15 @@
 package uz.javokhir.qr.master.shared
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.widget.Toast
 import uz.javokhir.qr.master.AndroidApp
 import uz.javokhir.qr.master.core.extensions.tryCatch
+import uz.javokhir.qr.master.ui.localization.AppStrings
 
 actual fun toast(message: String) {
     tryCatch {
@@ -39,13 +44,13 @@ actual fun shareText(text: String) {
 
 actual fun copyText(text: String) {
     tryCatch {
-//        val clipboard =
-//            AndroidApp.INSTANCE.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
-//        val clip = ClipData.newPlainText(AppStrings.appName, text)
-//        clipboard?.setPrimaryClip(clip)
-//
-//        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
-//            toast(AppStrings.copied)
-//        }
+        val clipboard =
+            AndroidApp.INSTANCE.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+        val clip = ClipData.newPlainText(AppStrings.appName, text)
+        clipboard?.setPrimaryClip(clip)
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
+            toast(AppStrings.copiedText)
+        }
     }
 }
