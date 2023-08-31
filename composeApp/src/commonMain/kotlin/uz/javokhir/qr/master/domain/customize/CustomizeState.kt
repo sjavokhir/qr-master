@@ -19,6 +19,5 @@ data class CustomizeState(
     val frameDotHex: String = "FF000000",
     val logos: List<String> = emptyList(),
     val selectedLogo: String = "",
-    val ownLogoPath: String? = null,
     val showPreview: Boolean = false,
 )

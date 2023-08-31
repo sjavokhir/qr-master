@@ -11,8 +11,10 @@ sealed class CustomizeEvent {
     data class SelectDot(val dot: QRDotMode) : CustomizeEvent()
     data class SelectColor(val hex: String) : CustomizeEvent()
     data class SelectLogo(val logo: String) : CustomizeEvent()
+
     data class ShowColorPicker(val colorPickerType: ColorPickerType) : CustomizeEvent()
     data object DismissColorPicker : CustomizeEvent()
+
     data class ShowHidePreview(val show: Boolean) : CustomizeEvent()
 }
 
