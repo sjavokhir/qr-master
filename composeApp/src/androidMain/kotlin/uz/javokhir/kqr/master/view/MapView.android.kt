@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,30 +30,31 @@ import uz.javokhir.kqr.master.data.model.common.GeoPosition
 @Composable
 actual fun MapView(
     modifier: Modifier,
-    currentPosition: MutableState<GeoPosition>,
+    onMovePosition: (GeoPosition) -> Unit,
 ) {
     val context = LocalContext.current
-    val cameraPermissionState = rememberMultiplePermissionsState(
+    val locationPermissionsState = rememberMultiplePermissionsState(
         listOf(
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
         )
     )
-    var currentLocation by remember { mutableStateOf(GeoPosition()) }
 
-    if (cameraPermissionState.allPermissionsGranted) {
+    var currentPosition by remember { mutableStateOf(GeoPosition()) }
+
+    if (locationPermissionsState.allPermissionsGranted) {
         getLocation(context) { location ->
-            currentLocation = location
+            currentPosition = location
         }
 
         MapViewWithGrantedPermission(
             modifier = modifier,
-            currentLocation = currentLocation,
-            currentPosition = currentPosition
+            currentLocation = currentPosition,
+            onMovePosition = onMovePosition
         )
     } else {
         LaunchedEffect(Unit) {
-            cameraPermissionState.launchMultiplePermissionRequest()
+            locationPermissionsState.launchMultiplePermissionRequest()
         }
     }
 }
@@ -63,7 +63,7 @@ actual fun MapView(
 private fun MapViewWithGrantedPermission(
     modifier: Modifier,
     currentLocation: GeoPosition,
-    currentPosition: MutableState<GeoPosition>,
+    onMovePosition: (GeoPosition) -> Unit,
 ) {
     val cameraPositionState = rememberCameraPositionState()
 
@@ -76,9 +76,11 @@ private fun MapViewWithGrantedPermission(
 
     LaunchedEffect(cameraPositionState.position to cameraPositionState.isMoving) {
         if (!cameraPositionState.isMoving) {
-            currentPosition.value = GeoPosition(
-                latitude = cameraPositionState.position.target.latitude,
-                longitude = cameraPositionState.position.target.longitude,
+            onMovePosition(
+                GeoPosition(
+                    latitude = cameraPositionState.position.target.latitude,
+                    longitude = cameraPositionState.position.target.longitude,
+                )
             )
         }
     }
@@ -110,10 +112,228 @@ private fun getLocation(
                 onLocationReceived(GeoPosition(it.latitude, it.longitude))
             }
             addOnFailureListener {
-                onLocationReceived(GeoPosition(0.0, 0.0))
+                onLocationReceived(GeoPosition())
             }
         }
 }
+
+private const val LIGHT_MODE_MAP = """
+    [
+  {
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#ebe3cd"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#523735"
+      }
+    ]
+  },
+  {
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#f5f1e6"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#c9b2a6"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#dcd2be"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#ae9e90"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.natural",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#dfd2ae"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#dfd2ae"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#93817c"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#a5b076"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#447530"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#f5f1e6"
+      }
+    ]
+  },
+  {
+    "featureType": "road.arterial",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#fdfcf8"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#f8c967"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#e9bc62"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway.controlled_access",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#e98d58"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway.controlled_access",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "color": "#db8555"
+      }
+    ]
+  },
+  {
+    "featureType": "road.local",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#806b63"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.line",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#dfd2ae"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.line",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#8f7d77"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.line",
+    "elementType": "labels.text.stroke",
+    "stylers": [
+      {
+        "color": "#ebe3cd"
+      }
+    ]
+  },
+  {
+    "featureType": "transit.station",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#dfd2ae"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#b9d3c2"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "labels.text.fill",
+    "stylers": [
+      {
+        "color": "#92998d"
+      }
+    ]
+  }
+]
+"""
 
 private const val DARK_MODE_MAP = """[
   {

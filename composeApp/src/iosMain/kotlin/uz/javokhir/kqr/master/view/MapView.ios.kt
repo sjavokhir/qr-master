@@ -8,6 +8,6 @@ import uz.javokhir.kqr.master.data.model.common.GeoPosition
 @Composable
 actual fun MapView(
     modifier: Modifier,
-    currentPosition: MutableState<GeoPosition>,
+    onMovePosition: (GeoPosition) -> Unit,
 ) {
 }
