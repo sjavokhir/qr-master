@@ -30,6 +30,7 @@ fun QrPreviewDialog(
 ) {
     val qrBitmap = rememberQrBitmap(
         content = appUrl,
+        customize = customize,
     )
 
     Dialog(

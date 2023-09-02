@@ -38,6 +38,7 @@ import uz.javokhir.qr.master.domain.customize.CustomizeEvent
 import uz.javokhir.qr.master.domain.customize.CustomizeState
 import uz.javokhir.qr.master.domain.customize.toModel
 import uz.javokhir.qr.master.screens.pickerColor.extensions.toColor
+import uz.javokhir.qr.master.screens.pickerColor.extensions.toHex
 import uz.javokhir.qr.master.screens.pickerColor.picker.ColorPickerDialog
 import uz.javokhir.qr.master.ui.components.AppFilledButton
 import uz.javokhir.qr.master.ui.components.AppOutlinedButton
@@ -58,7 +59,7 @@ fun CustomizeScreenContent(
                 onEvent(CustomizeEvent.DismissColorPicker)
             },
             onPickedColor = {
-//                onEvent(CustomizeEvent.SelectColor(it.toHex()))
+                onEvent(CustomizeEvent.SelectColor(it.toHex()))
             }
         )
     }

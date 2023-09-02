@@ -64,8 +64,8 @@ kotlin {
                 implementation(libs.android.camera.view)
                 implementation(libs.compose.uitooling)
                 implementation(libs.compose.activity)
-                implementation(libs.compose.accompanist.permissions)
                 implementation(libs.compose.maps)
+                implementation(libs.compose.accompanist.permissions)
                 implementation(libs.google.material)
                 implementation(libs.google.playservices.maps)
                 implementation(libs.google.playservices.location)
@@ -73,6 +73,7 @@ kotlin {
                 implementation(libs.google.zxing)
                 implementation(libs.koin.android)
                 implementation(libs.sqlDelight.driver.android)
+                implementation(libs.qr.generator)
             }
         }
 

@@ -190,7 +190,7 @@ private fun HistoryContentItem(
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Image(
-                imageVector = AppIcons.qrText,
+                imageVector = mode.icon,
                 contentDescription = mode.title,
                 modifier = Modifier
                     .size(42.dp)

@@ -13,7 +13,7 @@ android-browser = "1.6.0"
 compose = "1.5.0"
 compose-activity = "1.7.2"
 compose-uitooling = "1.5.0"
-compose-accompanist-permissions = "0.29.2-rc"
+compose-accompanist = "0.30.1"
 compose-maps = "2.11.2"
 
 google-material = "1.9.0"
@@ -27,6 +27,7 @@ koin = "3.4.3"
 sqlDelight = "2.0.0"
 settings = "1.0.0"
 voyager = "1.0.0-rc06"
+qr-generator = "2.0.0-alpha01"
 
 [libraries]
 
@@ -42,8 +43,8 @@ android-browser = { module = "androidx.browser:browser", version.ref = "android-
 
 compose-uitooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-uitooling" }
 compose-activity = { module = "androidx.activity:activity-compose", version.ref = "compose-activity" }
-compose-accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "compose-accompanist-permissions" }
 compose-maps = { module = "com.google.maps.android:maps-compose", version.ref = "compose-maps" }
+compose-accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "compose-accompanist" }
 
 google-material = { module = "com.google.android.material:material", version.ref = "google-material" }
 google-playservices-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "google-playservices-maps" }
@@ -60,6 +61,7 @@ sqlDelight-extensions = { module = "app.cash.sqldelight:coroutines-extensions", 
 
 settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "settings" }
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+qr-generator = { module = "com.github.alexzhirkevich:custom-qr-generator", version.ref = "qr-generator" }
 
 [plugins]
 

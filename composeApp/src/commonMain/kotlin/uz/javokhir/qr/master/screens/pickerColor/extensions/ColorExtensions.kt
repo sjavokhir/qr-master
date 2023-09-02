@@ -44,33 +44,27 @@ fun Color.alpha(): Int {
     return toArgb() shr 24 and 0xff
 }
 
-//fun Color.toHex(
-//    hexPrefix: Boolean = false,
-//    includeAlpha: Boolean = true
-//): String {
-//    val (alpha, red, green, blue) = argb()
-//    return buildString {
-//        if (hexPrefix) {
-//            append("#")
-//        }
-//        if (includeAlpha) {
-//            append(alpha.toHex())
-//        }
-//        append(red.toHex())
-//        append(green.toHex())
-//        append(blue.toHex())
-//    }
-//}
-//
-//private fun Int.toHex(): String {
-//    return Integer.toHexString(this).let {
-//        if (it.length == 1) {
-//            "0$it"
-//        } else {
-//            it
-//        }
-//    }
-//}
+fun Color.toHex(
+    hexPrefix: Boolean = false,
+    includeAlpha: Boolean = true,
+): String {
+    val (alpha, red, green, blue) = argb()
+    return buildString {
+        if (hexPrefix) {
+            append("#")
+        }
+        if (includeAlpha) {
+            append(alpha.toHex())
+        }
+        append(red.toHex())
+        append(green.toHex())
+        append(blue.toHex())
+    }
+}
+
+fun Int.toHex() =
+    if (this >= 16) this.toString(16)
+    else "0${this.toString(16)}"
 
 fun String.toColor(): Color {
     // Remove any leading '#' character if present

@@ -15,14 +15,15 @@ import platform.Foundation.create
 import platform.Foundation.dataUsingEncoding
 import platform.Foundation.setValue
 import platform.UIKit.UIImage
+import uz.javokhir.qr.master.data.model.common.QrCustomizeModel
 import uz.javokhir.qr.master.shared.platform.toImageBitmap
 
 @OptIn(ExperimentalForeignApi::class)
 @Composable
 actual fun rememberQrBitmap(
     content: String,
+    customize: QrCustomizeModel,
     size: Int,
-    padding: Int,
 ): ImageBitmap? {
     val filter = CIFilter.QRCodeGenerator().apply {
         setValue(content.nsData(), forKey = "inputMessage")

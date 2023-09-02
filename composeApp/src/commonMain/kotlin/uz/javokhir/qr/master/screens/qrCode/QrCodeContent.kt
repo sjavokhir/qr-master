@@ -76,7 +76,7 @@ fun QrDetailContent(
 ) {
     val qrBitmap = rememberQrBitmap(
         content = encoded,
-//        customize = customize,
+        customize = customize,
     )
 
     LazyColumn(
