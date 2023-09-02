@@ -4,7 +4,6 @@ package uz.javokhir.qr.master.ui.components
 //fun rememberQrDrawable(
 //    content: String,
 //    customize: QRCustomizeModel,
-//    ownLogo: Drawable? = null
 //): Drawable {
 //    val context = LocalContext.current
 //

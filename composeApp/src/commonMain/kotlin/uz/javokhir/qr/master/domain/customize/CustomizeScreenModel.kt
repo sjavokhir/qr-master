@@ -1,10 +1,13 @@
 package uz.javokhir.qr.master.domain.customize
 
+import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.coroutines.flow.update
-import uz.javokhir.qr.master.data.model.mode.QRCornerMode
-import uz.javokhir.qr.master.data.model.mode.QRDotMode
-import uz.javokhir.qr.master.data.model.mode.QRPatternMode
+import uz.javokhir.qr.master.data.model.common.QrCustomizeModel
+import uz.javokhir.qr.master.data.model.mode.QrCornerMode
+import uz.javokhir.qr.master.data.model.mode.QrDotMode
+import uz.javokhir.qr.master.data.model.mode.QrPatternMode
 import uz.javokhir.qr.master.domain.base.BaseScreenModel
+import uz.javokhir.qr.master.ui.icons.AppIcons
 
 class CustomizeScreenModel :
     BaseScreenModel<CustomizeState, CustomizeEvent>(CustomizeState()) {
@@ -15,84 +18,85 @@ class CustomizeScreenModel :
 
     override fun onEvent(event: CustomizeEvent) {
         when (event) {
-            is CustomizeEvent.Customize -> customize(event.state)
+            is CustomizeEvent.Customize -> customize(event.customize)
             is CustomizeEvent.SelectPattern -> selectPattern(event.pattern)
             is CustomizeEvent.SelectCorner -> selectCorner(event.corner)
             is CustomizeEvent.SelectDot -> selectDot(event.dot)
             is CustomizeEvent.SelectColor -> selectColor(event.hex.uppercase())
             is CustomizeEvent.SelectLogo -> selectLogo(event.logo)
-            is CustomizeEvent.ShowColorPicker -> showColorPicker(event.colorPickerType)
+            is CustomizeEvent.ShowColorPicker -> showColorPicker(event.mode)
             CustomizeEvent.DismissColorPicker -> dismissColorPicker()
             is CustomizeEvent.ShowHidePreview -> showHidePreview(event.show)
         }
     }
 
     private fun fetchCustomizations() {
-        val patterns = QRPatternMode.entries
-        val corners = QRCornerMode.entries
-        val dots = QRDotMode.entries
+        val patterns = QrPatternMode.entries
+        val corners = QrCornerMode.entries
+        val dots = QrDotMode.entries
 
         stateData.update {
             it.copy(
                 patterns = patterns,
                 corners = corners,
                 dots = dots,
+                logos = AppIcons.logos,
             )
         }
     }
 
-    private fun customize(state: CustomizeState) {
+    private fun customize(customize: QrCustomizeModel) {
         stateData.update {
             it.copy(
-                selectedPattern = state.selectedPattern,
-                selectedCorner = state.selectedCorner,
-                selectedDot = state.selectedDot,
-                patternDotHex = state.patternDotHex,
-                patternBackgroundHex = state.patternBackgroundHex,
-                frameHex = state.frameHex,
-                frameDotHex = state.frameDotHex,
-                selectedLogo = state.selectedLogo,
+                selectedPattern = customize.selectedPattern,
+                selectedCorner = customize.selectedCorner,
+                selectedDot = customize.selectedDot,
+                patternDotHex = customize.patternDotHex,
+                patternBackgroundHex = customize.patternBackgroundHex,
+                frameHex = customize.frameHex,
+                frameDotHex = customize.frameDotHex,
+                selectedLogo = customize.selectedLogo,
             )
         }
     }
 
-    private fun selectPattern(pattern: QRPatternMode) {
+    private fun selectPattern(pattern: QrPatternMode) {
         stateData.update { it.copy(selectedPattern = pattern) }
     }
 
-    private fun selectCorner(corner: QRCornerMode) {
+    private fun selectCorner(corner: QrCornerMode) {
         stateData.update { it.copy(selectedCorner = corner) }
     }
 
-    private fun selectDot(dot: QRDotMode) {
+    private fun selectDot(dot: QrDotMode) {
         stateData.update { it.copy(selectedDot = dot) }
     }
 
     private fun selectColor(hex: String) {
         stateData.update {
-            when (it.colorPickerType) {
-                ColorPickerType.PatternDotColor -> {
+            when (it.colorPickerMode) {
+                ColorPickerMode.PatternDotColor -> {
                     it.copy(
                         showColorPicker = false,
                         patternDotHex = hex
                     )
                 }
 
-                ColorPickerType.PatternBackgroundColor -> {
+                ColorPickerMode.PatternBackgroundColor -> {
                     it.copy(
                         showColorPicker = false,
                         patternBackgroundHex = hex
                     )
                 }
 
-                ColorPickerType.FrameColor -> {
+                ColorPickerMode.FrameColor -> {
                     it.copy(
                         showColorPicker = false,
                         frameHex = hex
                     )
                 }
 
-                ColorPickerType.FrameDotColor -> {
+                ColorPickerMode.FrameDotColor -> {
                     it.copy(
                         showColorPicker = false,
                         frameDotHex = hex
@@ -102,19 +106,19 @@ class CustomizeScreenModel :
         }
     }
 
-    private fun selectLogo(logo: String) {
+    private fun selectLogo(logo: ImageVector) {
         stateData.update {
             it.copy(
-                selectedLogo = if (logo == it.selectedLogo) "" else logo
+                selectedLogo = if (logo == it.selectedLogo) null else logo
             )
         }
     }
 
-    private fun showColorPicker(colorPickerType: ColorPickerType) {
+    private fun showColorPicker(mode: ColorPickerMode) {
         stateData.update {
             it.copy(
                 showColorPicker = true,
-                colorPickerType = colorPickerType
+                colorPickerMode = mode
             )
         }
     }

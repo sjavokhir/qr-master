@@ -36,11 +36,11 @@ class HistoryScreenModel :
         }
     }
 
-    private fun getHistory(isScanned: Boolean, query: String) {
-        setLoading(isScanned, query)
+    private fun getHistory(scanned: Boolean, query: String) {
+        setLoading(scanned, query)
 
         coroutineScope.launch {
-            historyDao.getHistory(isScanned, query).collectLatest { setSuccess(it) }
+            historyDao.getHistory(scanned, query).collectLatest { setSuccess(it) }
         }
     }
 

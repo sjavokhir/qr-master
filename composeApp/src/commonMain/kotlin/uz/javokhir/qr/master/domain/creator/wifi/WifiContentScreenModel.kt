@@ -11,7 +11,6 @@ class WifiContentScreenModel :
             is WifiContentEvent.Encoded -> onEncoded(event.value)
             is WifiContentEvent.NetworkNameChanged -> onValueChanged(networkName = event.name)
             is WifiContentEvent.PasswordChanged -> onValueChanged(password = event.password)
-            is WifiContentEvent.SelectAuthentication -> onValueChanged(authentication = event.authentication)
             is WifiContentEvent.HiddenChecked -> onValueChanged(hidden = event.hidden)
         }
     }
@@ -24,7 +23,6 @@ class WifiContentScreenModel :
         onValueChanged(
             networkName = content.networkName,
             password = content.password,
-            authentication = content.authentication,
             hidden = content.hidden
         )
     }
@@ -32,7 +30,6 @@ class WifiContentScreenModel :
     private fun onValueChanged(
         networkName: String? = null,
         password: String? = null,
-        authentication: WifiContentState.Authentication? = null,
         hidden: Boolean? = null,
     ) {
         stateData.update {
@@ -42,21 +39,8 @@ class WifiContentScreenModel :
             it.copy(
                 networkName = mNetworkName,
                 password = mPassword,
-                authentication = authentication ?: it.authentication,
                 hidden = hidden ?: it.hidden,
-                enabled = when (authentication ?: it.authentication) {
-                    WifiContentState.Authentication.WEP -> {
-                        mNetworkName.isNotEmpty() && mPassword.isNotEmpty()
-                    }
-
-                    WifiContentState.Authentication.WPA_WPA2 -> {
-                        mNetworkName.isNotEmpty() && mPassword.length >= 8
-                    }
-
-                    WifiContentState.Authentication.OPEN -> {
-                        mNetworkName.isNotEmpty()
-                    }
-                },
+                enabled = mNetworkName.isNotEmpty() && mPassword.isNotEmpty(),
                 setEncoded = true
             )
         }

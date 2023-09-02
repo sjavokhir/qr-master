@@ -1,11 +1,8 @@
 package uz.javokhir.qr.master.ui.components
 
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.ime
-import androidx.compose.foundation.layout.statusBars
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.LocalAbsoluteTonalElevation
 import androidx.compose.material3.Surface
@@ -30,9 +27,6 @@ fun AppBackground(
         tonalElevation = if (tonalElevation == Dp.Unspecified) 0.dp else tonalElevation,
         modifier = modifier
             .fillMaxSize()
-            .windowInsetsPadding(WindowInsets.displayCutout)
-            .windowInsetsPadding(WindowInsets.statusBars)
-            .windowInsetsPadding(WindowInsets.systemBars)
             .windowInsetsPadding(WindowInsets.ime)
     ) {
         CompositionLocalProvider(LocalAbsoluteTonalElevation provides 0.dp) {

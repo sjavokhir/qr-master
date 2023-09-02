@@ -60,7 +60,7 @@ private fun AppTopAppBarContent(
                     onClick = onNavigateUp
                 ) {
                     AppIcon(
-                        imageVector = AppIcons.ArrowBack,
+                        imageVector = AppIcons.arrowBack,
                         color = MaterialTheme.colorScheme.onBackground
                     )
                 }

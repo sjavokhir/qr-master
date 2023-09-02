@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
 import org.koin.android.ext.android.inject
 import uz.javokhir.qr.master.data.store.AppStore
-import uz.javokhir.qr.master.screens.App
+import uz.javokhir.qr.master.ui.navigation.App
 
 class AppActivity : ComponentActivity() {
 

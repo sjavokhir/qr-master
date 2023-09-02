@@ -8,6 +8,7 @@ kotlin-datetime = "0.4.0"
 
 android-appcompat = "1.6.1"
 android-camerax = "1.2.3"
+android-browser = "1.6.0"
 
 compose = "1.5.0"
 compose-activity = "1.7.2"
@@ -37,6 +38,7 @@ android-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "an
 android-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "android-camerax" }
 android-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "android-camerax" }
 android-camera-view = { module = "androidx.camera:camera-view", version.ref = "android-camerax" }
+android-browser = { module = "androidx.browser:browser", version.ref = "android-browser" }
 
 compose-uitooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-uitooling" }
 compose-activity = { module = "androidx.activity:activity-compose", version.ref = "compose-activity" }
@@ -52,7 +54,6 @@ google-zxing = { module = "com.google.zxing:core", version.ref = "google-zxing" 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 
-sqlDelight-driver-sqlite = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqlDelight" }
 sqlDelight-driver-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
 sqlDelight-driver-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
 sqlDelight-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }

@@ -1,23 +1,38 @@
 package uz.javokhir.qr.master.domain.customize
 
-import uz.javokhir.qr.master.data.model.mode.QRCornerMode
-import uz.javokhir.qr.master.data.model.mode.QRDotMode
-import uz.javokhir.qr.master.data.model.mode.QRPatternMode
+import androidx.compose.ui.graphics.vector.ImageVector
+import uz.javokhir.qr.master.data.model.common.QrCustomizeModel
+import uz.javokhir.qr.master.data.model.mode.QrCornerMode
+import uz.javokhir.qr.master.data.model.mode.QrDotMode
+import uz.javokhir.qr.master.data.model.mode.QrPatternMode
 
 data class CustomizeState(
-    val patterns: List<QRPatternMode> = emptyList(),
-    val selectedPattern: QRPatternMode = QRPatternMode.Default,
-    val corners: List<QRCornerMode> = emptyList(),
-    val selectedCorner: QRCornerMode = QRCornerMode.Default,
-    val dots: List<QRDotMode> = emptyList(),
-    val selectedDot: QRDotMode = QRDotMode.Default,
+    val patterns: List<QrPatternMode> = emptyList(),
+    val selectedPattern: QrPatternMode = QrPatternMode.Default,
+    val corners: List<QrCornerMode> = emptyList(),
+    val selectedCorner: QrCornerMode = QrCornerMode.Default,
+    val dots: List<QrDotMode> = emptyList(),
+    val selectedDot: QrDotMode = QrDotMode.Default,
     val showColorPicker: Boolean = false,
-    val colorPickerType: ColorPickerType = ColorPickerType.PatternDotColor,
+    val colorPickerMode: ColorPickerMode = ColorPickerMode.PatternDotColor,
     val patternDotHex: String = "FF000000",
     val patternBackgroundHex: String = "FFFFFFFF",
     val frameHex: String = "FF000000",
     val frameDotHex: String = "FF000000",
-    val logos: List<String> = emptyList(),
-    val selectedLogo: String = "",
+    val logos: List<ImageVector> = emptyList(),
+    val selectedLogo: ImageVector? = null,
     val showPreview: Boolean = false,
 )
+
+fun CustomizeState.toModel(): QrCustomizeModel {
+    return QrCustomizeModel(
+        selectedPattern = selectedPattern,
+        selectedCorner = selectedCorner,
+        selectedDot = selectedDot,
+        patternDotHex = patternDotHex,
+        patternBackgroundHex = patternBackgroundHex,
+        frameHex = frameHex,
+        frameDotHex = frameDotHex,
+        selectedLogo = selectedLogo,
+    )
+}

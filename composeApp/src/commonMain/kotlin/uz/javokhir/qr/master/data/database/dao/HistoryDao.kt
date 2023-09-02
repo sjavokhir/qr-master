@@ -8,17 +8,18 @@ import kotlinx.coroutines.flow.map
 import uz.javokhir.qr.master.core.datetime.currentTimestamp
 import uz.javokhir.qr.master.data.database.entity.HistoryEntity
 import uz.javokhir.qr.master.data.database.entity.toEntity
+import uz.javokhir.qr.master.data.model.common.QrCustomizeModel
 import uz.javokhir.qr.master.data.model.mode.GenerateMode
 import uz.javokhir.qr.master.db.AppDatabase
 import uz.javokhir.qr.master.domain.customize.CustomizeState
-import uz.javokhir.qr.master.shared.ioDispatcher
+import uz.javokhir.qr.master.shared.platform.ioDispatcher
 
 class HistoryDao(database: AppDatabase) {
 
     private val queries = database.appDatabaseQueries
 
-    fun getHistory(isScanned: Boolean, query: String): Flow<List<HistoryEntity>> {
-        return queries.getHistory(if (isScanned) 0 else 1)
+    fun getHistory(scanned: Boolean, query: String): Flow<List<HistoryEntity>> {
+        return queries.getHistory(if (scanned) 0 else 1)
             .asFlow()
             .mapToList(ioDispatcher)
             .map { log ->
@@ -34,16 +35,16 @@ class HistoryDao(database: AppDatabase) {
 
     fun insert(
         id: String,
-        isScanned: Boolean,
+        scanned: Boolean,
         generateMode: GenerateMode,
         encoded: String,
         decoded: String,
-        customize: CustomizeState,
+        customize: QrCustomizeModel,
     ) {
         queries.insert(
             id = id,
             timestamp = currentTimestamp(),
-            history_type = if (isScanned) 0 else 1,
+            history_type = if (scanned) 0 else 1,
             generate_mode = generateMode.ordinal.toLong(),
             encode = encoded,
             decode = decoded,
@@ -54,7 +55,7 @@ class HistoryDao(database: AppDatabase) {
             pattern_background_hex = customize.patternBackgroundHex,
             frame_hex = customize.frameHex,
             frame_dot_hex = customize.frameDotHex,
-            selected_logo = customize.selectedLogo,
+            selected_logo = "",
             latitude = 0.0,
             longitude = 0.0,
         )
@@ -64,7 +65,7 @@ class HistoryDao(database: AppDatabase) {
         queries.delete(id)
     }
 
-    fun clearAll(isScanned: Boolean) {
-        queries.clearAll(if (isScanned) 0 else 1)
+    fun clearAll(scanned: Boolean) {
+        queries.clearAll(if (scanned) 0 else 1)
     }
 }

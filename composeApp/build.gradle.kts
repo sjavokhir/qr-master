@@ -58,6 +58,7 @@ kotlin {
             dependencies {
                 implementation(libs.kotlin.coroutines.android)
                 implementation(libs.android.appcompat)
+                implementation(libs.android.browser)
                 implementation(libs.android.camera.camera2)
                 implementation(libs.android.camera.lifecycle)
                 implementation(libs.android.camera.view)

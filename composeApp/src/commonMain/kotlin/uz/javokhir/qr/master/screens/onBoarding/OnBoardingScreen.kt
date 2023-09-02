@@ -15,10 +15,11 @@ object OnBoardingScreen : Screen {
         val screenModel = rememberScreenModel { OnBoardingScreenModel() }
         val state by screenModel.state.collectAsState()
 
-        BaseScreenWrapper(screenModel = screenModel) {
+        BaseScreenWrapper(screenModel) {
             OnBoardingScreenContent(
                 state = state,
-                onEvent = screenModel::onEvent
+                onEvent = screenModel::onEvent,
+                onUiEvent = screenModel::sendEvent
             )
         }
     }

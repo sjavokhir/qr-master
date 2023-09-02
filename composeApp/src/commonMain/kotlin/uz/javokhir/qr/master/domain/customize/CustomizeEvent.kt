@@ -1,24 +1,26 @@
 package uz.javokhir.qr.master.domain.customize
 
-import uz.javokhir.qr.master.data.model.mode.QRCornerMode
-import uz.javokhir.qr.master.data.model.mode.QRDotMode
-import uz.javokhir.qr.master.data.model.mode.QRPatternMode
+import androidx.compose.ui.graphics.vector.ImageVector
+import uz.javokhir.qr.master.data.model.common.QrCustomizeModel
+import uz.javokhir.qr.master.data.model.mode.QrCornerMode
+import uz.javokhir.qr.master.data.model.mode.QrDotMode
+import uz.javokhir.qr.master.data.model.mode.QrPatternMode
 
 sealed class CustomizeEvent {
-    data class Customize(val state: CustomizeState) : CustomizeEvent()
-    data class SelectPattern(val pattern: QRPatternMode) : CustomizeEvent()
-    data class SelectCorner(val corner: QRCornerMode) : CustomizeEvent()
-    data class SelectDot(val dot: QRDotMode) : CustomizeEvent()
+    data class Customize(val customize: QrCustomizeModel) : CustomizeEvent()
+    data class SelectPattern(val pattern: QrPatternMode) : CustomizeEvent()
+    data class SelectCorner(val corner: QrCornerMode) : CustomizeEvent()
+    data class SelectDot(val dot: QrDotMode) : CustomizeEvent()
     data class SelectColor(val hex: String) : CustomizeEvent()
-    data class SelectLogo(val logo: String) : CustomizeEvent()
+    data class SelectLogo(val logo: ImageVector) : CustomizeEvent()
 
-    data class ShowColorPicker(val colorPickerType: ColorPickerType) : CustomizeEvent()
+    data class ShowColorPicker(val mode: ColorPickerMode) : CustomizeEvent()
     data object DismissColorPicker : CustomizeEvent()
 
     data class ShowHidePreview(val show: Boolean) : CustomizeEvent()
 }
 
-enum class ColorPickerType {
+enum class ColorPickerMode {
     PatternDotColor,
     PatternBackgroundColor,
     FrameColor,

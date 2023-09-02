@@ -1,6 +1,10 @@
 package uz.javokhir.qr.master.data.database.entity
 
 import database.History
+import uz.javokhir.qr.master.data.model.common.QrCustomizeModel
+import uz.javokhir.qr.master.data.model.mode.toQrCornerMode
+import uz.javokhir.qr.master.data.model.mode.toQrDotMode
+import uz.javokhir.qr.master.data.model.mode.toQrPatternMode
 
 data class HistoryEntity(
     val id: String,
@@ -35,5 +39,17 @@ fun History.toEntity(): HistoryEntity {
         frameHex = frame_hex.ifEmpty { "FF000000" },
         frameDotHex = frame_dot_hex.ifEmpty { "FF000000" },
         selectedLogo = selected_logo,
+    )
+}
+
+fun HistoryEntity.toModel(): QrCustomizeModel {
+    return QrCustomizeModel(
+        selectedPattern = selectedPattern.toQrPatternMode(),
+        selectedCorner = selectedCorner.toQrCornerMode(),
+        selectedDot = selectedDot.toQrDotMode(),
+        patternDotHex = patternDotHex,
+        patternBackgroundHex = patternBackgroundHex,
+        frameHex = frameHex,
+        frameDotHex = frameDotHex,
     )
 }

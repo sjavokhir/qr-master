@@ -1,8 +1,6 @@
 package uz.javokhir.qr.master.ui.localization
 
 object AppStrings {
-    const val appName = "QR Master"
-
     const val text = "Text"
     const val wifi = "Wi-Fi"
     const val calendarEvent = "Calendar event"
@@ -26,7 +24,6 @@ object AppStrings {
     const val medium = "Medium"
     const val dribbble = "Dribbble"
     const val behance = "Behance"
-
     const val copiedText = "Copied Text"
     const val copiedToClipboard = "Copied to clipboard"
     const val photoSaved = "Photo saved successfully"
@@ -41,7 +38,6 @@ object AppStrings {
     const val scan = "Scan"
     const val select = "Select"
     const val selectLocation = "Select location"
-    const val sendUs = "Send us an email"
     const val share = "Share"
     const val skip = "Skip"
     const val start = "Start"
@@ -50,13 +46,7 @@ object AppStrings {
     const val address = "Address"
     const val alignQrCode = "Align QR Code / Bardcode within frame to scan"
     const val allDayEvent = "All day event"
-    const val allowCameraAccess = "Allow Camera Access"
-    const val allowLocationAccess = "Allow Location Access"
-    const val allowStorageAccess = "Allow Storage Access"
-    const val appVersion = "App Version"
     const val backgroundColor = "Background Color"
-    const val batchScan = "Batch Scan"
-    const val cancelAnytime = "No commitments cancel anytime!"
     const val chromeCustomTabs = "Chrome Custom Tabs"
     const val clickCreateButton = "Click create button to start create QR Code."
     const val clickScanButton = "Click scan button to start scan QR Code."
@@ -95,45 +85,24 @@ object AppStrings {
     const val egPlaceholderWebsite = "e.g. www.yourwebsite.com"
     const val egPlaceholderWifiName = "e.g. My Wi-Fi"
     const val egPlaceholderWifiPassword = "e.g. 11111111"
-    const val encryptionType = "Encryption type"
     const val endDate = "End date"
     const val endDateTime = "End date and time"
     const val enterValue = "Enter value"
     const val eventName = "Event name"
-    const val faq = "FAQ"
-    const val feature1 = "Unlimited CSV Exports"
-    const val feature2 = "Code Color Custom"
-    const val feature3 = "Fast and Secure Batch Scan"
-    const val feature4 = "No Ads!"
-    const val feedback = "Feedback"
-    const val feedbackDescription =
-        "Many questions are already answered in the \"FAQ\".\n\nPlease write your email in English.\n\nIf possible please include photos of the barcode or screenshots."
     const val name = "Name"
     const val frameColor = "Frame color"
     const val frameStyle = "Frame style"
-    const val frequentlyAskedQuestions = "Frequently Asked Questions"
     const val general = "General"
-    const val getHelp = "Get Help"
-    const val goPro = "Go Pro!"
-    const val grantCameraPermission = "Grant Camera Permission for QR Codes."
-    const val grantLocationPermission =
-        "Grant Location permission for enhanced QR scanning accuracy."
-    const val grantStoragePermission =
-        "Grant Storage permission to save the QR image so you can easily access and share it whenever necessary."
-    const val helpUsImprove = "Help us improve!"
     const val hidden = "Hidden"
     const val history = "History"
     const val industry = "Industry"
     const val job = "Job"
-    const val language = "Language"
     const val lastName = "Last name"
     const val latitude = "Latitude"
     const val library = "Library"
     const val light = "Light"
     const val location = "Location"
     const val longitude = "Longitude"
-    const val managePermissions = "Manage Permissions"
-    const val maximumSize = "Maximum size: 2 MB"
     const val message = "Message"
     const val networkName = "Network name"
     const val noContentFound = "No content found!"
@@ -149,13 +118,6 @@ object AppStrings {
     const val other = "Other"
     const val others = "Others"
     const val password = "Password"
-    const val permissionsGranted = "Permission granted!"
-    const val permissionsGrantedDescription =
-        "You now have complete access to our QR Master app. Get ready to scan generate and share QR codes with ease."
-    const val premium = "Premium"
-    const val premiumDescription =
-        "You can be premium by choosing a package and you can create the qr code you want and customize it as you wish."
-    const val privacy = "Privacy"
     const val qrCode = "QR Code"
     const val qrCodePattern = "QR code pattern"
     const val rateUs = "Rate us"
@@ -173,14 +135,10 @@ object AppStrings {
     const val subject = "Subject"
     const val systemDefault = "System default"
     const val tellFriends = "Tell friends"
-    const val terms = "Terms"
     const val theme = "Theme"
-    const val uploadImage = "Upload image (JPG and PNG)"
-    const val uploadYourOwnLogo = "Upload your own logo"
     const val vibrate = "Vibrate"
     const val web = "Web"
     const val website = "Website"
-    const val welcomeToPremium = "Welcome to Premium!"
     const val whatsappNumber = "WhatsApp number"
     const val searchOnWeb = "Search on the web"
     const val openWebsite = "Open website"
@@ -194,12 +152,29 @@ object AppStrings {
     const val copyPassword = "Copy password"
     const val copy = "Copy"
     const val edit = "Edit"
-    const val mChannelName = "channel name"
-    const val mProfile = "profile"
-    const val mUsername = "username"
-    const val mDial = "Dial"
     const val viewAddress = "View address"
     const val addToCalendar = "Add to calendar"
     const val scanImage = "Scan image"
     const val dragMarkers = "Drag the white markers till the barcode is detected"
+
+    private const val mChannelName = "channel name"
+    private const val mProfile = "profile"
+    private const val mUsername = "username"
+    private const val mDial = "Dial"
+
+    fun socialMediaChannel(channel: String): String {
+        return "$channel $mChannelName"
+    }
+
+    fun socialMediaProfile(profile: String): String {
+        return "$profile $mProfile"
+    }
+
+    fun socialMediaUsername(username: String): String {
+        return "$username $mUsername"
+    }
+
+    fun dial(phone: String): String {
+        return "$mDial $phone"
+    }
 }

@@ -6,12 +6,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.displayCutout
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
@@ -33,12 +30,14 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import uz.javokhir.qr.master.data.model.common.OnBoarding
+import uz.javokhir.qr.master.domain.base.UiEvent
 import uz.javokhir.qr.master.domain.onBoarding.OnBoardingEvent
 import uz.javokhir.qr.master.domain.onBoarding.OnBoardingState
+import uz.javokhir.qr.master.screens.scanner.ScannerScreen
 import uz.javokhir.qr.master.ui.components.AppFilledButton
 import uz.javokhir.qr.master.ui.components.AppOutlinedButton
 import uz.javokhir.qr.master.ui.components.HorizontalPagerIndicator
-import uz.javokhir.qr.master.ui.icons.AppIcons
 import uz.javokhir.qr.master.ui.localization.AppStrings
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -46,85 +45,45 @@ import uz.javokhir.qr.master.ui.localization.AppStrings
 fun OnBoardingScreenContent(
     state: OnBoardingState,
     onEvent: (OnBoardingEvent) -> Unit,
+    onUiEvent: (UiEvent) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
-    val pagerState = rememberPagerState { 4 }
+    val pagerState = rememberPagerState { state.onBoardings.size }
 
-    val isStart = remember(pagerState.currentPage) { pagerState.currentPage == 3 }
-    val resources = remember(pagerState.currentPage) {
-        when (pagerState.currentPage + 1) {
-            2 -> AppIcons.OnBoarding2 to (AppStrings.onboardingTitle2 to AppStrings.onboardingDescription2)
-            3 -> AppIcons.OnBoarding3 to (AppStrings.onboardingTitle3 to AppStrings.onboardingDescription3)
-            4 -> AppIcons.OnBoarding4 to (AppStrings.onboardingTitle4 to AppStrings.onboardingDescription4)
-            else -> AppIcons.OnBoarding1 to (AppStrings.onboardingTitle1 to AppStrings.onboardingDescription1)
-        }
+    val started = remember(pagerState.currentPage) {
+        pagerState.currentPage == state.onBoardings.lastIndex
     }
 
     LaunchedEffect(state.started) {
         if (state.started) {
+            onUiEvent(UiEvent.Replace(ScannerScreen))
         }
     }
 
     Column(
-        modifier = Modifier.padding(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier
+            .fillMaxSize()
+            .windowInsetsPadding(WindowInsets.systemBars)
+            .windowInsetsPadding(WindowInsets.statusBars),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Spacer(modifier = Modifier.weight(1f))
-
-        Text(
-            text = AppStrings.appName,
-            style = MaterialTheme.typography.headlineMedium
-        )
-
-        Spacer(modifier = Modifier.height(32.dp))
-
-        Image(
-            imageVector = resources.first,
-            contentDescription = null,
-            modifier = Modifier
-                .size(200.dp)
-                .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.primary)
-                .padding(32.dp),
-            colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onPrimary)
-        )
-
-        Spacer(modifier = Modifier.weight(1f))
-
         HorizontalPager(
             state = pagerState,
-            userScrollEnabled = false
+            modifier = Modifier.weight(1f),
         ) {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Text(
-                    text = resources.second.first,
-                    style = MaterialTheme.typography.titleMedium,
-                    textAlign = TextAlign.Center
-                )
-
-                Text(
-                    text = resources.second.second,
-                    style = MaterialTheme.typography.bodyLarge,
-                    textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.outline
-                )
-            }
+            PagerContent(state.onBoardings.getOrNull(it))
         }
-
-        Spacer(modifier = Modifier.height(32.dp))
 
         HorizontalPagerIndicator(
             pagerState = pagerState,
-            pageCount = 4
+            pageCount = state.onBoardings.size
         )
 
-        Spacer(modifier = Modifier.weight(1f))
-
         Row(
+            modifier = Modifier.padding(
+                horizontal = 20.dp,
+                vertical = 40.dp
+            ),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(20.dp)
         ) {
@@ -137,9 +96,9 @@ fun OnBoardingScreenContent(
             )
 
             AppFilledButton(
-                text = if (isStart) AppStrings.start else AppStrings.next,
+                text = if (started) AppStrings.start else AppStrings.next,
                 onClick = {
-                    if (isStart) {
+                    if (started) {
                         onEvent(OnBoardingEvent.Start)
                     } else {
                         scope.launch {
@@ -150,7 +109,52 @@ fun OnBoardingScreenContent(
                 modifier = Modifier.weight(1f)
             )
         }
+    }
+}
 
-        Spacer(modifier = Modifier.weight(1f))
+@Composable
+private fun PagerContent(
+    onBoarding: OnBoarding?,
+) {
+    if (onBoarding != null) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(32.dp)
+        ) {
+            Image(
+                imageVector = onBoarding.icon,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(200.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.primary)
+                    .padding(32.dp),
+                colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onPrimary)
+            )
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Text(
+                    text = onBoarding.title,
+                    style = MaterialTheme.typography.titleLarge,
+                    textAlign = TextAlign.Center
+                )
+
+                Text(
+                    text = onBoarding.description,
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.outline,
+                    minLines = 3,
+                    maxLines = 3,
+                )
+            }
+        }
     }
 }

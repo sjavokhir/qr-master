@@ -80,7 +80,7 @@ private val DarkColorScheme = darkColorScheme(
 private val LightBackgroundTheme = BackgroundTheme(color = md_theme_light_background)
 private val DarkBackgroundTheme = BackgroundTheme(color = md_theme_dark_background)
 
-val LocalThemeMode = staticCompositionLocalOf { false }
+val LocalDarkMode = staticCompositionLocalOf { false }
 
 @Composable
 fun AppTheme(
@@ -105,7 +105,7 @@ fun AppTheme(
 
     CompositionLocalProvider(
         LocalBackgroundTheme provides backgroundTheme,
-        LocalThemeMode provides darkMode,
+        LocalDarkMode provides darkMode,
     ) {
         MaterialTheme(
             colorScheme = colorScheme,

@@ -30,21 +30,20 @@ fun AppNavigationBar(
     Surface(
         color = MaterialTheme.colorScheme.background,
         contentColor = MaterialTheme.colorScheme.onBackground,
-        modifier = modifier
+        modifier = modifier.windowInsetsPadding(windowInsets)
     ) {
-        Column {
-            Divider(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(1.dp),
-                color = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
-            )
+        if (show) {
+            Column {
+                Divider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(1.dp),
+                    color = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
+                )
 
-            if (show) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .windowInsetsPadding(windowInsets)
                         .height(65.dp)
                         .selectableGroup(),
                     verticalAlignment = Alignment.CenterVertically,
