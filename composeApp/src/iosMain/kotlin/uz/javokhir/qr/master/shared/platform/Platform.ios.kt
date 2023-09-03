@@ -5,6 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import platform.CoreFoundation.CFUUIDCreate
 import platform.CoreFoundation.CFUUIDCreateString
 import platform.Foundation.CFBridgingRelease
+import uz.javokhir.qr.master.shared.platform.Platform
 
 actual val appUrl: String
     get() = "https://play.google.com/store/apps/details?id=uz.javokhir.qr.master"
@@ -15,3 +16,5 @@ actual fun randomUUID(): String =
 
 actual val mainDispatcher = Dispatchers.Main
 actual val ioDispatcher = Dispatchers.Default
+
+actual val platform = Platform.IOS

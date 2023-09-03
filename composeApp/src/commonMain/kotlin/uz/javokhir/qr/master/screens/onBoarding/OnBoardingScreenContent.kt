@@ -56,7 +56,7 @@ fun OnBoardingScreenContent(
 
     LaunchedEffect(state.started) {
         if (state.started) {
-            onUiEvent(UiEvent.Replace(ScannerScreen))
+            onUiEvent(UiEvent.ReplaceAll(ScannerScreen))
         }
     }
 

@@ -129,13 +129,11 @@ android {
 }
 
 sqldelight {
-  databases {
-    create("AppDatabase") {
-      // Database configuration here.
-      // https://cashapp.github.io/sqldelight
-      packageName.set("uz.javokhir.qr.master.db")
+    databases {
+        create("AppDatabase") {
+            packageName.set("uz.javokhir.qr.master.db")
+        }
     }
-  }
 }
 
 secrets {

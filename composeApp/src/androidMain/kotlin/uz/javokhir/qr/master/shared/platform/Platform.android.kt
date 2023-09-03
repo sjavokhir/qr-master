@@ -10,3 +10,5 @@ actual fun randomUUID() = UUID.randomUUID().toString()
 
 actual val mainDispatcher = Dispatchers.Main
 actual val ioDispatcher = Dispatchers.IO
+
+actual val platform = Platform.Android

@@ -73,7 +73,7 @@ data class AddContentScreen(
                         navigator.pop()
                     }
                 } else {
-                    navigator.push(
+                    navigator.replace(
                         QrCodeScreen(
                             id = id,
                             dateTime = defaultDateTime(),

@@ -315,9 +315,9 @@ private fun HistoryNotFoundContent(
             text = if (scanned) AppStrings.scan else AppStrings.create,
             onClick = {
                 if (scanned) {
-                    onUiEvent(UiEvent.Replace(ScannerScreen))
+                    onUiEvent(UiEvent.ReplaceAll(ScannerScreen))
                 } else {
-                    onUiEvent(UiEvent.Replace(CreatorScreen))
+                    onUiEvent(UiEvent.ReplaceAll(CreatorScreen))
                 }
             }
         )

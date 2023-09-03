@@ -8,14 +8,10 @@ import platform.CoreImage.CIContext
 import platform.CoreImage.CIFilter
 import platform.CoreImage.QRCodeGenerator
 import platform.CoreImage.createCGImage
-import platform.Foundation.NSData
-import platform.Foundation.NSString
-import platform.Foundation.NSUTF8StringEncoding
-import platform.Foundation.create
-import platform.Foundation.dataUsingEncoding
 import platform.Foundation.setValue
 import platform.UIKit.UIImage
 import uz.javokhir.qr.master.data.model.common.QrCustomizeModel
+import uz.javokhir.qr.master.extensions.toNSData
 import uz.javokhir.qr.master.shared.platform.toImageBitmap
 
 @OptIn(ExperimentalForeignApi::class)
@@ -26,7 +22,7 @@ actual fun rememberQrBitmap(
     size: Int,
 ): ImageBitmap? {
     val filter = CIFilter.QRCodeGenerator().apply {
-        setValue(content.nsData(), forKey = "inputMessage")
+        setValue(content.toNSData(), forKey = "inputMessage")
     }
     val outputImg = filter.outputImage ?: return null
 
@@ -43,6 +39,3 @@ actual fun rememberQrBitmap(
 
     return uiImage.toImageBitmap()
 }
-
-private fun String.nsData(): NSData? =
-    NSString.create(string = this).dataUsingEncoding(NSUTF8StringEncoding)

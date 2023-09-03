@@ -25,7 +25,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import uz.javokhir.qr.master.core.datetime.defaultDateTime
+import uz.javokhir.qr.master.data.model.common.QrCustomizeModel
+import uz.javokhir.qr.master.domain.base.UiEvent
 import uz.javokhir.qr.master.domain.scanner.ScannerState
+import uz.javokhir.qr.master.screens.qrCode.QrCodeScreen
+import uz.javokhir.qr.master.shared.platform.randomUUID
 import uz.javokhir.qr.master.shared.ui.QrCameraView
 import uz.javokhir.qr.master.ui.components.AppIcon
 import uz.javokhir.qr.master.ui.extensions.clickableSingle
@@ -35,23 +40,9 @@ import uz.javokhir.qr.master.ui.localization.AppStrings
 @Composable
 fun ScannerScreenContent(
     state: ScannerState,
+    onUiEvent: (UiEvent) -> Unit,
 ) {
     var flashlightOn by remember { mutableStateOf(false) }
-
-//    val photoPicker = rememberLauncherForActivityResult(
-//        ActivityResultContracts.GetMultipleContents()
-//    ) { uris ->
-//        val uri = uris.firstOrNull() ?: return@rememberLauncherForActivityResult
-//
-//        onNavigate(
-//            ImageCropperScreenDestination(
-//                imageUri = uri.toString(),
-//                isVibrateEnabled = state.isVibrateEnabled,
-//                isOpenWebPagesEnabled = state.isOpenWebPagesEnabled,
-//                isChromeCustomTabsEnabled = state.isChromeCustomTabsEnabled
-//            )
-//        )
-//    }
 
     Box(
         modifier = Modifier
@@ -65,19 +56,21 @@ fun ScannerScreenContent(
             openWebPagesEnabled = state.openWebPagesEnabled,
             chromeCustomTabsEnabled = state.chromeCustomTabsEnabled
         ) { encoded, decoded, mode ->
-//            onNavigate(
-//                QRCodeScreenDestination(
-//                    id = randomUUID(),
-//                    dateTime = defaultDateTime(),
-//                    isScanned = true,
-//                    generateMode = mode,
-//                    encoded = encoded,
-//                    decoded = decoded,
-//                    customize = QRCustomizeModel(),
-//                    isEditable = false,
-//                    isDeletable = false
-//                )
-//            )
+            onUiEvent(
+                UiEvent.Navigate(
+                    QrCodeScreen(
+                        id = randomUUID(),
+                        dateTime = defaultDateTime(),
+                        scanned = true,
+                        generateMode = mode,
+                        encoded = encoded,
+                        decoded = decoded,
+                        customize = QrCustomizeModel(),
+                        editable = false,
+                        deletable = false
+                    )
+                )
+            )
         }
 
         Column(
@@ -111,21 +104,15 @@ fun ScannerScreenContent(
                     .padding(horizontal = 32.dp)
             )
 
-            ScannerActionsContent(
-                onGalleryClick = {
-//                    photoPicker.launch("image/*")
-                },
-                onFlashlightClick = {
-                    flashlightOn = !flashlightOn
-                },
-            )
+            ScannerActionsContent {
+                flashlightOn = !flashlightOn
+            }
         }
     }
 }
 
 @Composable
 private fun ScannerActionsContent(
-    onGalleryClick: () -> Unit,
     onFlashlightClick: () -> Unit,
 ) {
     Row(
@@ -136,25 +123,6 @@ private fun ScannerActionsContent(
             alignment = Alignment.CenterHorizontally
         )
     ) {
-        Box(
-            modifier = Modifier
-                .size(56.dp)
-                .clip(MaterialTheme.shapes.medium)
-                .border(
-                    width = 1.dp,
-                    color = MaterialTheme.colorScheme.outline,
-                    shape = MaterialTheme.shapes.medium
-                )
-                .background(Color.Black.copy(alpha = 0.1f))
-                .clickableSingle(onClick = onGalleryClick),
-            contentAlignment = Alignment.Center
-        ) {
-            AppIcon(
-                imageVector = AppIcons.gallery,
-                color = Color.White
-            )
-        }
-
         Box(
             modifier = Modifier
                 .size(56.dp)

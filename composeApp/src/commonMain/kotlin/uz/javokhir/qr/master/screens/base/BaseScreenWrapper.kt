@@ -22,7 +22,8 @@ fun <State, ScreenEvent> BaseScreenWrapper(
             when (event) {
                 is UiEvent.Message -> toast(event.message)
                 is UiEvent.Navigate -> navigator.push(event.screen)
-                is UiEvent.Replace -> navigator.replaceAll(event.screen)
+                is UiEvent.Replace -> navigator.replace(event.screen)
+                is UiEvent.ReplaceAll -> navigator.replaceAll(event.screen)
                 UiEvent.NavigateUp -> navigator.pop()
             }
         }

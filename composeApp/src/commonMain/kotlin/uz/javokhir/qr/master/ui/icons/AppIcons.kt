@@ -49,7 +49,6 @@ object AppIcons {
     val search = Icons.Rounded.Search
 
     val flashlight = uz.javokhir.qr.master.ui.icons.custom.Flashlight
-    val gallery = uz.javokhir.qr.master.ui.icons.custom.Gallery
     val scannerLines = uz.javokhir.qr.master.ui.icons.custom.ScannerLines
     val scannedHistory = uz.javokhir.qr.master.ui.icons.custom.ScannedHistory
     val createdHistory = uz.javokhir.qr.master.ui.icons.custom.CreatedHistory

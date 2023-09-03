@@ -135,7 +135,12 @@ fun EventContent(
             modifier = Modifier.clickableSingle(
                 onClick = {
                     onEvent(EventContentEvent.ShowPicker(false))
-//                    onNavigate(DateTimePickerScreenDestination(!state.allDay))
+
+                    onNavigate(
+                        DateTimePickerScreen(!state.allDay) {
+                            onEvent(EventContentEvent.DateTimeChanged(it))
+                        }
+                    )
                 },
                 hasIndication = false
             )

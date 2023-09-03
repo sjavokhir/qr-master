@@ -13,14 +13,12 @@ class SettingsScreenModel :
     private val appStore by inject<AppStore>()
 
     init {
-        coroutineScope.launch {
-            stateData.update {
-                it.copy(
-                    vibrateChecked = appStore.isVibrateEnabled(),
-                    openWebPagesChecked = appStore.isOpenWebPagesEnabled(),
-                    chromeCustomTabsChecked = appStore.isChromeCustomTabsEnabled(),
-                )
-            }
+        stateData.update {
+            it.copy(
+                vibrateChecked = appStore.isVibrateEnabled(),
+                openWebPagesChecked = appStore.isOpenWebPagesEnabled(),
+                chromeCustomTabsChecked = appStore.isChromeCustomTabsEnabled(),
+            )
         }
     }
 

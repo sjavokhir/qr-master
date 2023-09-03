@@ -16,7 +16,10 @@ object ScannerScreen : Screen {
         val state by screenModel.state.collectAsState()
 
         BaseScreenWrapper(screenModel) {
-            ScannerScreenContent(state = state)
+            ScannerScreenContent(
+                state = state,
+                onUiEvent = screenModel::sendEvent
+            )
         }
     }
 }

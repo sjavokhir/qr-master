@@ -40,12 +40,14 @@ import uz.javokhir.qr.master.domain.creator.location.toLocationContent
 import uz.javokhir.qr.master.domain.creator.phone.toPhoneContent
 import uz.javokhir.qr.master.domain.creator.sms.toSmsContent
 import uz.javokhir.qr.master.domain.creator.wifi.toWifiContent
+import uz.javokhir.qr.master.shared.platform.Platform
 import uz.javokhir.qr.master.shared.platform.addContact
 import uz.javokhir.qr.master.shared.platform.addToCalendar
 import uz.javokhir.qr.master.shared.platform.connectToWifi
 import uz.javokhir.qr.master.shared.platform.copyToClipboard
 import uz.javokhir.qr.master.shared.platform.dial
 import uz.javokhir.qr.master.shared.platform.openUrl
+import uz.javokhir.qr.master.shared.platform.platform
 import uz.javokhir.qr.master.shared.platform.saveQrImage
 import uz.javokhir.qr.master.shared.platform.searchGoogle
 import uz.javokhir.qr.master.shared.platform.sendMail
@@ -83,11 +85,14 @@ fun QrDetailContent(
         verticalArrangement = Arrangement.spacedBy(24.dp),
         contentPadding = PaddingValues(20.dp)
     ) {
-        item {
-            CustomizeContent {
-                onCustomize(customize)
+        if (platform == Platform.Android) {
+            item {
+                CustomizeContent {
+                    onCustomize(customize)
+                }
             }
         }
+
         qrBitmap?.let {
             item { QrImage(it) }
         }

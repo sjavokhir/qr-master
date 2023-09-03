@@ -1,11 +1,16 @@
 package uz.javokhir.qr.master.camera.detector
 
 import android.content.Context
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import com.google.android.gms.tasks.Task
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
+import uz.javokhir.qr.master.AndroidApp
 import uz.javokhir.qr.master.camera.core.VisionProcessorBase
 import uz.javokhir.qr.master.core.extensions.roundLast5
 import uz.javokhir.qr.master.core.extensions.tryCatch
@@ -22,7 +27,6 @@ import uz.javokhir.qr.master.domain.creator.text.TextContentState
 import uz.javokhir.qr.master.domain.creator.website.WebsiteContentState
 import uz.javokhir.qr.master.domain.creator.wifi.WifiContentState
 import uz.javokhir.qr.master.shared.platform.openUrl
-import uz.javokhir.qr.master.shared.platform.vibrate
 
 class QrDetector(
     context: Context,
@@ -216,6 +220,26 @@ class QrDetector(
 
                 onResult(encoded, decoded, generateMode)
             }
+        }
+    }
+
+    private fun vibrate(milliseconds: Long = 300) {
+        tryCatch {
+            val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                val vibratorManager =
+                    AndroidApp.INSTANCE.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+                vibratorManager.defaultVibrator
+            } else {
+                @Suppress("DEPRECATION")
+                AndroidApp.INSTANCE.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            }
+
+            vibrator.vibrate(
+                VibrationEffect.createOneShot(
+                    milliseconds,
+                    VibrationEffect.DEFAULT_AMPLITUDE
+                )
+            )
         }
     }
 }

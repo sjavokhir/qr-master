@@ -28,7 +28,6 @@ object AppStrings {
     const val copiedToClipboard = "Copied to clipboard"
     const val photoSaved = "Photo saved successfully"
     const val cancel = "Cancel"
-    const val actionContinue = "Continue"
     const val create = "Create"
     const val delete = "Delete"
     const val next = "Next"
@@ -146,7 +145,8 @@ object AppStrings {
     const val sendEmail = "Send email"
     const val addContact = "Add contact"
     const val showLocation = "Show location"
-    const val shareDescription = "QR Master - Your all-in-one QR scanner and creator app for quick and effortless code scanning creation and customization. Unlock a world of information with a simple scan and easily generate personalized codes. Get QR Master now!"
+    const val shareDescription =
+        "QR Master - Your all-in-one QR scanner and creator app for quick and effortless code scanning creation and customization. Unlock a world of information with a simple scan and easily generate personalized codes. Get QR Master now!"
     const val connectToWifi = "Connect to Wi-Fi"
     const val copyNetworkName = "Copy network name"
     const val copyPassword = "Copy password"
@@ -154,8 +154,6 @@ object AppStrings {
     const val edit = "Edit"
     const val viewAddress = "View address"
     const val addToCalendar = "Add to calendar"
-    const val scanImage = "Scan image"
-    const val dragMarkers = "Drag the white markers till the barcode is detected"
 
     private const val mChannelName = "channel name"
     private const val mProfile = "profile"

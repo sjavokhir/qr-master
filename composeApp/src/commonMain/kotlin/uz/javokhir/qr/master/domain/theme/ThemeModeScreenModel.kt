@@ -14,13 +14,11 @@ class ThemeModeScreenModel :
     private val appStore by inject<AppStore>()
 
     init {
-        coroutineScope.launch {
-            stateData.update {
-                it.copy(
-                    selectedTheme = appStore.getSelectedThemeMode(),
-                    themeModes = ThemeMode.entries
-                )
-            }
+        stateData.update {
+            it.copy(
+                selectedTheme = appStore.getSelectedThemeMode(),
+                themeModes = ThemeMode.entries
+            )
         }
     }
 

@@ -62,26 +62,6 @@ actual fun dial(phone: String) {
     }
 }
 
-actual fun vibrate(milliseconds: Long) {
-    tryCatch {
-        val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val vibratorManager =
-                AndroidApp.INSTANCE.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
-            vibratorManager.defaultVibrator
-        } else {
-            @Suppress("DEPRECATION")
-            AndroidApp.INSTANCE.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        }
-
-        vibrator.vibrate(
-            VibrationEffect.createOneShot(
-                milliseconds,
-                VibrationEffect.DEFAULT_AMPLITUDE
-            )
-        )
-    }
-}
-
 actual fun shareText(text: String) {
     tryCatch {
         val intent = Intent(Intent.ACTION_SEND).apply {

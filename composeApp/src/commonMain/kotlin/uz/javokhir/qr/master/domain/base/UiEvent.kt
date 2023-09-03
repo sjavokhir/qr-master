@@ -6,5 +6,6 @@ sealed interface UiEvent {
     data class Message(val message: String) : UiEvent
     data class Navigate(val screen: Screen) : UiEvent
     data class Replace(val screen: Screen) : UiEvent
+    data class ReplaceAll(val screen: Screen) : UiEvent
     data object NavigateUp : UiEvent
 }

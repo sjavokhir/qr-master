@@ -8,8 +8,6 @@ expect fun copyToClipboard(text: String)
 
 expect fun dial(phone: String)
 
-expect fun vibrate(milliseconds: Long = 300)
-
 expect fun shareText(text: String)
 
 expect fun openUrl(
