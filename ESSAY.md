@@ -1,0 +1,5 @@
+## Background Essay
+
+I'm Javokhir, developer with 3 years of experience in coding, specializing in mobile app development across various platforms. My journey started during my educational years when I discovered my love for programming. Over time, I've honed my skills with different technologies, including Java, Kotlin and Swift. My coding journey has been a blend of academic achievements and personal interests, leading me to explore projects that resonate with my interests.
+
+The idea behind **QR Master** stems from my fascination with QR codes and their potential to streamline various processes. This project was born out of a desire to create a versatile, cross-platform tool that simplifies QR code management. I envisioned a mobile app that not only scans QR codes but also allows users to create and customize their own. QR Master is the realization of that vision.
