@@ -3,7 +3,6 @@ package uz.javokhir.qr.master.ui.icons
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBackIosNew
 import androidx.compose.material.icons.rounded.Call
-import androidx.compose.material.icons.rounded.Cancel
 import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.ChevronRight
 import androidx.compose.material.icons.rounded.ContentCopy
@@ -24,7 +23,6 @@ import androidx.compose.material.icons.rounded.Save
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.Sms
 import androidx.compose.material.icons.rounded.Today
-import androidx.compose.ui.graphics.vector.ImageVector
 
 object AppIcons {
     val arrowBack = Icons.Rounded.ArrowBackIosNew
@@ -48,7 +46,6 @@ object AppIcons {
     val copy = Icons.Rounded.ContentCopy
     val addContact = Icons.Rounded.PersonAdd
     val call = Icons.Rounded.Call
-    val cancel = Icons.Rounded.Cancel
     val search = Icons.Rounded.Search
 
     val flashlight = uz.javokhir.qr.master.ui.icons.custom.Flashlight
@@ -116,48 +113,4 @@ object AppIcons {
     val patternSquare = uz.javokhir.qr.master.ui.icons.pattern.Patternsquare
     val patternStar = uz.javokhir.qr.master.ui.icons.pattern.Patternstar
     val patternVertical = uz.javokhir.qr.master.ui.icons.pattern.Patternvertical
-
-    val logos: List<ImageVector>
-        get() = listOf(
-            uz.javokhir.qr.master.ui.icons.logo.Amazon,
-            uz.javokhir.qr.master.ui.icons.logo.Apple,
-            uz.javokhir.qr.master.ui.icons.logo.Behance,
-            uz.javokhir.qr.master.ui.icons.logo.Chrome,
-            uz.javokhir.qr.master.ui.icons.logo.Discord,
-            uz.javokhir.qr.master.ui.icons.logo.Dribbble,
-            uz.javokhir.qr.master.ui.icons.logo.Facebook,
-            uz.javokhir.qr.master.ui.icons.logo.Figma,
-            uz.javokhir.qr.master.ui.icons.logo.Github,
-            uz.javokhir.qr.master.ui.icons.logo.Gmail,
-            uz.javokhir.qr.master.ui.icons.logo.Google,
-            uz.javokhir.qr.master.ui.icons.logo.GoogleDrive,
-            uz.javokhir.qr.master.ui.icons.logo.GooglePlay,
-            uz.javokhir.qr.master.ui.icons.logo.Instagram,
-            uz.javokhir.qr.master.ui.icons.logo.Linkedin,
-            uz.javokhir.qr.master.ui.icons.logo.Medium,
-            uz.javokhir.qr.master.ui.icons.logo.Messenger,
-            uz.javokhir.qr.master.ui.icons.logo.Microsoft,
-            uz.javokhir.qr.master.ui.icons.logo.Netflix,
-            uz.javokhir.qr.master.ui.icons.logo.Notion,
-            uz.javokhir.qr.master.ui.icons.logo.Patreon,
-            uz.javokhir.qr.master.ui.icons.logo.Pintrest,
-            uz.javokhir.qr.master.ui.icons.logo.Reddit,
-            uz.javokhir.qr.master.ui.icons.logo.Sketch,
-            uz.javokhir.qr.master.ui.icons.logo.Slack,
-            uz.javokhir.qr.master.ui.icons.logo.Snapchat,
-            uz.javokhir.qr.master.ui.icons.logo.SoundCloud,
-            uz.javokhir.qr.master.ui.icons.logo.Spotify,
-            uz.javokhir.qr.master.ui.icons.logo.StackOverflow,
-            uz.javokhir.qr.master.ui.icons.logo.Telegram,
-            uz.javokhir.qr.master.ui.icons.logo.Trello,
-            uz.javokhir.qr.master.ui.icons.logo.Tumblr,
-            uz.javokhir.qr.master.ui.icons.logo.Twitch,
-            uz.javokhir.qr.master.ui.icons.logo.Twitter,
-            uz.javokhir.qr.master.ui.icons.logo.Whatsapp,
-            uz.javokhir.qr.master.ui.icons.logo.Wikipedia,
-            uz.javokhir.qr.master.ui.icons.logo.Yahoo,
-            uz.javokhir.qr.master.ui.icons.logo.Youtube,
-            uz.javokhir.qr.master.ui.icons.logo.LogoShare,
-            uz.javokhir.qr.master.ui.icons.logo.LogoWifi,
-        )
 }

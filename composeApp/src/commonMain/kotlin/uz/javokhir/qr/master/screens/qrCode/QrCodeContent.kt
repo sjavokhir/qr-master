@@ -126,10 +126,10 @@ fun QrDetailContent(
                 editable = editable,
                 deletable = deletable,
                 onSave = {
-                    saveQrImage()
+                    saveQrImage(qrBitmap)
                 },
                 onShare = {
-                    shareQrImage()
+                    shareQrImage(qrBitmap)
                 },
                 onCopy = {
                     copyToClipboard(encoded)

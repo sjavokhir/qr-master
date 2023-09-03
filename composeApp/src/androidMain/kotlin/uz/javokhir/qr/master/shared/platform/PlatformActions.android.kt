@@ -3,25 +3,36 @@ package uz.javokhir.qr.master.shared.platform
 import android.content.BroadcastReceiver
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Bitmap
+import android.media.MediaScannerConnection
 import android.net.Uri
 import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
 import android.net.wifi.WifiNetworkSuggestion
 import android.os.Build
+import android.os.Environment
+import android.os.StrictMode
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
 import android.provider.CalendarContract
 import android.provider.ContactsContract
+import android.provider.MediaStore
 import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asAndroidBitmap
 import uz.javokhir.qr.master.AndroidApp
 import uz.javokhir.qr.master.core.datetime.toCalendarTimestamp
 import uz.javokhir.qr.master.core.extensions.tryCatch
 import uz.javokhir.qr.master.ui.localization.AppStrings
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 
 actual fun toast(message: String) {
     tryCatch {
@@ -100,16 +111,6 @@ actual fun openUrl(
             AndroidApp.INSTANCE.startActivity(intent)
         }
     }
-}
-
-actual fun searchGoogle(
-    query: String,
-    chromeCustomTabsEnabled: Boolean,
-) {
-    openUrl(
-        "https://www.google.com/search?q=$query",
-        chromeCustomTabsEnabled
-    )
 }
 
 actual fun sendMail(
@@ -286,69 +287,71 @@ actual fun addToCalendar(
     }
 }
 
-actual fun saveQrImage() {
-//    val bitmap = drawable.toBitmap(1024, 1024)
-//    saveBitmapToGallery(context, bitmap)
+actual fun saveQrImage(qrBitmap: ImageBitmap?) {
+    val bitmap = qrBitmap?.asAndroidBitmap() ?: return
+    saveBitmapToGallery(AndroidApp.INSTANCE, bitmap)
 }
 
-actual fun shareQrImage() {
-//    val bitmap = drawable.toBitmap(1024, 1024)
-//    val uri = ImageUtils.saveBitmapToGallery(context, bitmap)
-//
-//    // Grant temporary permissions to access the file URI
-//    StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder().build())
-//
-//    val shareIntent = Intent(Intent.ACTION_SEND).apply {
-//        type = "image/jpeg"
-//        putExtra(Intent.EXTRA_STREAM, uri)
-//        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-//    }
-//    context.startActivity(Intent.createChooser(shareIntent, "Share Photo"))
+actual fun shareQrImage(qrBitmap: ImageBitmap?) {
+    val bitmap = qrBitmap?.asAndroidBitmap() ?: return
+    val uri = saveBitmapToGallery(AndroidApp.INSTANCE, bitmap)
+
+    tryCatch {
+        // Grant temporary permissions to access the file URI
+        StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder().build())
+
+        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "image/jpeg"
+            putExtra(Intent.EXTRA_STREAM, uri)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+        AndroidApp.INSTANCE.startActivity(Intent.createChooser(shareIntent, "Share QR"))
+    }
 }
 
-//private fun saveBitmapToGallery(
-//    context: Context,
-//    bitmap: Bitmap,
-//): Uri {
-//    val title = "QR_${System.currentTimeMillis()}"
-//
-//    // Get the image's directory
-//    val imageDirectory = Environment.getExternalStoragePublicDirectory(
-//        Environment.DIRECTORY_PICTURES
-//    )
-//    val imageFile = File(imageDirectory, "$title.jpg")
-//
-//    val contentValues = ContentValues().apply {
-//        put(MediaStore.Images.Media.DISPLAY_NAME, title)
-//        put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
-//        put(MediaStore.Images.Media.DATA, imageFile.absolutePath)
-//    }
-//
-//    var outputStream: OutputStream? = null
-//    try {
-//        outputStream = FileOutputStream(imageFile)
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-//        outputStream.flush()
-//
-//        // Insert image into the MediaStore
-//        context.contentResolver.apply {
-//            insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
-//        }
-//
-//        // Notify the gallery about the new image
-//        MediaScannerConnection.scanFile(
-//            context,
-//            arrayOf(imageFile.absolutePath),
-//            null,
-//            null
-//        )
-//
-//        toast(AppStrings.photoSaved)
-//    } catch (t: Throwable) {
-//        t.printStackTrace()
-//    } finally {
-//        outputStream?.close()
-//    }
-//
-//    return Uri.fromFile(imageFile)
-//}
+private fun saveBitmapToGallery(
+    context: Context,
+    bitmap: Bitmap,
+): Uri {
+    val title = "QR_${System.currentTimeMillis()}"
+
+    // Get the image's directory
+    val imageDirectory = Environment.getExternalStoragePublicDirectory(
+        Environment.DIRECTORY_PICTURES
+    )
+    val imageFile = File(imageDirectory, "$title.jpg")
+
+    val contentValues = ContentValues().apply {
+        put(MediaStore.Images.Media.DISPLAY_NAME, title)
+        put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+        put(MediaStore.Images.Media.DATA, imageFile.absolutePath)
+    }
+
+    var outputStream: OutputStream? = null
+    try {
+        outputStream = FileOutputStream(imageFile)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        outputStream.flush()
+
+        // Insert image into the MediaStore
+        context.contentResolver.apply {
+            insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+        }
+
+        // Notify the gallery about the new image
+        MediaScannerConnection.scanFile(
+            context,
+            arrayOf(imageFile.absolutePath),
+            null,
+            null
+        )
+
+        toast(AppStrings.photoSaved)
+    } catch (t: Throwable) {
+        t.printStackTrace()
+    } finally {
+        outputStream?.close()
+    }
+
+    return Uri.fromFile(imageFile)
+}

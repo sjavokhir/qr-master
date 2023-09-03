@@ -1,6 +1,7 @@
 package uz.javokhir.qr.master.screens.pickerColor.picker
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,6 +19,7 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
@@ -45,14 +47,11 @@ fun ColorSlideBar(
             .onSizeChanged {
                 slideBarSize = it
             }
-//            .pointerInteropFilter {
-//                when (it.action) {
-//                    MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
-//                        progress = (it.x / slideBarSize.width).coerceIn(0f, 1f)
-//                    }
-//                }
-//                return@pointerInteropFilter true
-//            }
+            .pointerInput(Unit) {
+                detectDragGestures { change, _ ->
+                    progress = (change.position.x / slideBarSize.width).coerceIn(0f, 1f)
+                }
+            }
             .clipToBounds()
             .clip(RoundedCornerShape(100))
     ) {

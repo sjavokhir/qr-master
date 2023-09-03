@@ -64,7 +64,7 @@ fun EventContent(
                 style = MaterialTheme.typography.bodyLarge
             )
 
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(Modifier.weight(1f))
 
             Switch(
                 checked = state.allDay,

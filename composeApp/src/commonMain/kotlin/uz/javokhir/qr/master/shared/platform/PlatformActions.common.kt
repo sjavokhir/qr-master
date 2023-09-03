@@ -1,5 +1,7 @@
 package uz.javokhir.qr.master.shared.platform
 
+import androidx.compose.ui.graphics.ImageBitmap
+
 expect fun toast(message: String)
 
 expect fun copyToClipboard(text: String)
@@ -15,10 +17,15 @@ expect fun openUrl(
     chromeCustomTabsEnabled: Boolean,
 )
 
-expect fun searchGoogle(
+fun searchGoogle(
     query: String,
     chromeCustomTabsEnabled: Boolean,
-)
+) {
+    openUrl(
+        "https://www.google.com/search?q=$query",
+        chromeCustomTabsEnabled
+    )
+}
 
 expect fun sendMail(
     email: String,
@@ -61,6 +68,7 @@ expect fun addToCalendar(
     startMillis: Long?,
     endMillis: Long?,
 )
-expect fun saveQrImage()
 
-expect fun shareQrImage()
+expect fun saveQrImage(qrBitmap: ImageBitmap?)
+
+expect fun shareQrImage(qrBitmap: ImageBitmap?)

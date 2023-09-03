@@ -1,5 +1,6 @@
 package uz.javokhir.qr.master.shared.ui
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Path
@@ -11,6 +12,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.github.alexzhirkevich.customqrgenerator.QrData
 import com.github.alexzhirkevich.customqrgenerator.style.Neighbors
@@ -19,14 +21,18 @@ import com.github.alexzhirkevich.customqrgenerator.vector.createQrVectorOptions
 import com.github.alexzhirkevich.customqrgenerator.vector.style.QrVectorBallShape
 import com.github.alexzhirkevich.customqrgenerator.vector.style.QrVectorColor
 import com.github.alexzhirkevich.customqrgenerator.vector.style.QrVectorFrameShape
+import com.github.alexzhirkevich.customqrgenerator.vector.style.QrVectorLogoPadding
+import com.github.alexzhirkevich.customqrgenerator.vector.style.QrVectorLogoShape
 import com.github.alexzhirkevich.customqrgenerator.vector.style.QrVectorPixelShape
 import com.github.alexzhirkevich.customqrgenerator.vector.style.QrVectorShapeModifier
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import uz.javokhir.qr.master.AndroidApp
 import uz.javokhir.qr.master.data.model.common.QrCustomizeModel
 import uz.javokhir.qr.master.data.model.mode.QrCornerMode
 import uz.javokhir.qr.master.data.model.mode.QrDotMode
 import uz.javokhir.qr.master.data.model.mode.QrPatternMode
+import uz.javokhir.qr.master.extensions.drawableId
 
 @Composable
 actual fun rememberQrBitmap(
@@ -60,6 +66,7 @@ actual fun rememberQrBitmap(
 private suspend fun generateQrDrawable(
     content: String,
     customize: QrCustomizeModel,
+    context: Context = AndroidApp.INSTANCE,
 ): Drawable = withContext(Dispatchers.IO) {
     val options = createQrVectorOptions {
         padding = .10f
@@ -70,16 +77,16 @@ private suspend fun generateQrDrawable(
             )
         }
 
-//        if (customize.selectedLogo.isNotEmpty()) {
-//            context.drawableId(customize.selectedLogo)?.let {
-//                logo {
-//                    drawable = ContextCompat.getDrawable(context, it)
-//                    size = .2f
-//                    padding = QrVectorLogoPadding.Natural(.1f)
-//                    shape = QrVectorLogoShape.Circle
-//                }
-//            }
-//        }
+        if (customize.selectedLogo.isNotEmpty()) {
+            context.drawableId(customize.selectedLogo)?.let { resource ->
+                logo {
+                    drawable = ContextCompat.getDrawable(context, resource)
+                    size = .2f
+                    padding = QrVectorLogoPadding.Natural(.1f)
+                    shape = QrVectorLogoShape.Circle
+                }
+            }
+        }
 
         colors {
             dark = QrVectorColor.Solid(Color.parseColor("#${customize.patternDotHex}"))

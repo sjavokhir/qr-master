@@ -1,13 +1,12 @@
 package uz.javokhir.qr.master.domain.customize
 
-import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.coroutines.flow.update
 import uz.javokhir.qr.master.data.model.common.QrCustomizeModel
+import uz.javokhir.qr.master.data.model.common.QrLogo
 import uz.javokhir.qr.master.data.model.mode.QrCornerMode
 import uz.javokhir.qr.master.data.model.mode.QrDotMode
 import uz.javokhir.qr.master.data.model.mode.QrPatternMode
 import uz.javokhir.qr.master.domain.base.BaseScreenModel
-import uz.javokhir.qr.master.ui.icons.AppIcons
 
 class CustomizeScreenModel :
     BaseScreenModel<CustomizeState, CustomizeEvent>(CustomizeState()) {
@@ -40,7 +39,6 @@ class CustomizeScreenModel :
                 patterns = patterns,
                 corners = corners,
                 dots = dots,
-                logos = AppIcons.logos,
             )
         }
     }
@@ -106,10 +104,10 @@ class CustomizeScreenModel :
         }
     }
 
-    private fun selectLogo(logo: ImageVector) {
+    private fun selectLogo(logo: QrLogo) {
         stateData.update {
             it.copy(
-                selectedLogo = if (logo == it.selectedLogo) null else logo
+                selectedLogo = if (logo.name == it.selectedLogo) "" else logo.name
             )
         }
     }

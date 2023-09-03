@@ -1,6 +1,5 @@
 package uz.javokhir.qr.master.data.model.common
 
-import androidx.compose.ui.graphics.vector.ImageVector
 import cafe.adriel.voyager.core.lifecycle.JavaSerializable
 import uz.javokhir.qr.master.data.model.mode.QrCornerMode
 import uz.javokhir.qr.master.data.model.mode.QrDotMode
@@ -14,5 +13,5 @@ data class QrCustomizeModel(
     val patternBackgroundHex: String = "FFFFFFFF",
     val frameHex: String = "FF000000",
     val frameDotHex: String = "FF000000",
-    val selectedLogo: ImageVector? = null,
+    val selectedLogo: String = "",
 ) : JavaSerializable

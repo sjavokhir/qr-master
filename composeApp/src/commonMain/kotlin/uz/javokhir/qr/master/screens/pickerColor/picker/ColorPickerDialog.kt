@@ -72,7 +72,7 @@ fun ColorPickerDialog(
                     fontWeight = FontWeight.SemiBold
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(Modifier.height(16.dp))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -100,7 +100,7 @@ fun ColorPickerDialog(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(Modifier.height(20.dp))
 
                 Text(
                     text = AppStrings.library,
@@ -108,7 +108,7 @@ fun ColorPickerDialog(
                     fontWeight = FontWeight.SemiBold
                 )
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(Modifier.height(10.dp))
 
                 ColorLibraryContent(
                     colors = Colors.libraryColors,
@@ -116,7 +116,7 @@ fun ColorPickerDialog(
                     onPickedColor = { color = it }
                 )
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(Modifier.height(24.dp))
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically,

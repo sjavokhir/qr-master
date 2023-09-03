@@ -107,7 +107,7 @@ fun ColorPicker(
             }
 
             if (showBrightnessBar) {
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(Modifier.height(20.dp))
 
                 ColorSlideBar(
                     colors = listOf(
@@ -120,7 +120,7 @@ fun ColorPicker(
             }
 
             if (showAlphaBar) {
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(Modifier.height(20.dp))
 
                 ColorSlideBar(
                     colors = listOf(Color.Transparent, rangeColor)

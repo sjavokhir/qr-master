@@ -1,6 +1,5 @@
 package uz.javokhir.qr.master.domain.customize
 
-import androidx.compose.ui.graphics.vector.ImageVector
 import uz.javokhir.qr.master.data.model.common.QrCustomizeModel
 import uz.javokhir.qr.master.data.model.mode.QrCornerMode
 import uz.javokhir.qr.master.data.model.mode.QrDotMode
@@ -19,8 +18,7 @@ data class CustomizeState(
     val patternBackgroundHex: String = "FFFFFFFF",
     val frameHex: String = "FF000000",
     val frameDotHex: String = "FF000000",
-    val logos: List<ImageVector> = emptyList(),
-    val selectedLogo: ImageVector? = null,
+    val selectedLogo: String = "",
     val showPreview: Boolean = false,
 )
 

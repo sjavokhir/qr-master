@@ -94,7 +94,7 @@ fun DateTimePickerScreenContent(
                         }
                     }
                     item {
-                        Spacer(modifier = Modifier.height(72.dp))
+                        Spacer(Modifier.height(72.dp))
                     }
                 }
             }

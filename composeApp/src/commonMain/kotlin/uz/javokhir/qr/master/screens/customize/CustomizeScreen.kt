@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import uz.javokhir.qr.master.data.model.common.QrCustomizeModel
+import uz.javokhir.qr.master.domain.base.UiEvent
 import uz.javokhir.qr.master.domain.customize.CustomizeEvent
 import uz.javokhir.qr.master.domain.customize.CustomizeScreenModel
 import uz.javokhir.qr.master.domain.customize.toModel
@@ -33,6 +34,7 @@ data class CustomizeScreen(
                 onEvent = screenModel::onEvent,
                 onCustomize = {
                     onCustomize(state.toModel())
+                    screenModel.sendEvent(UiEvent.NavigateUp)
                 }
             )
         }

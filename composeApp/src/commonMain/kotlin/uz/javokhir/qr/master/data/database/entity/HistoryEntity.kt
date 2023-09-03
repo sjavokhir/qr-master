@@ -51,5 +51,6 @@ fun HistoryEntity.toModel(): QrCustomizeModel {
         patternBackgroundHex = patternBackgroundHex,
         frameHex = frameHex,
         frameDotHex = frameDotHex,
+        selectedLogo = selectedLogo,
     )
 }

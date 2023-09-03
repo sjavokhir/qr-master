@@ -111,7 +111,7 @@ private fun GenerateContentItem(
             )
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(Modifier.height(16.dp))
 
         if (!lastItem) {
             DividerContent()

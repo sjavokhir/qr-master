@@ -33,6 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import uz.javokhir.qr.master.data.model.common.QrLogo
 import uz.javokhir.qr.master.domain.customize.ColorPickerMode
 import uz.javokhir.qr.master.domain.customize.CustomizeEvent
 import uz.javokhir.qr.master.domain.customize.CustomizeState
@@ -40,6 +41,7 @@ import uz.javokhir.qr.master.domain.customize.toModel
 import uz.javokhir.qr.master.screens.pickerColor.extensions.toColor
 import uz.javokhir.qr.master.screens.pickerColor.extensions.toHex
 import uz.javokhir.qr.master.screens.pickerColor.picker.ColorPickerDialog
+import uz.javokhir.qr.master.shared.ui.rememberQrLogos
 import uz.javokhir.qr.master.ui.components.AppFilledButton
 import uz.javokhir.qr.master.ui.components.AppOutlinedButton
 import uz.javokhir.qr.master.ui.components.AppTextField
@@ -53,6 +55,8 @@ fun CustomizeScreenContent(
     onEvent: (CustomizeEvent) -> Unit,
     onCustomize: () -> Unit,
 ) {
+    val qrLogos = rememberQrLogos()
+    
     if (state.showColorPicker) {
         ColorPickerDialog(
             onDismissRequest = {
@@ -88,9 +92,7 @@ fun CustomizeScreenContent(
                 )
             }
             item {
-                DividerContent(
-                    modifier = Modifier.padding(horizontal = 20.dp)
-                )
+                DividerContent(Modifier.padding(horizontal = 20.dp))
             }
             item {
                 CornerStyleContent(
@@ -98,19 +100,23 @@ fun CustomizeScreenContent(
                     onEvent = onEvent
                 )
             }
-            item {
-                DividerContent(
-                    modifier = Modifier.padding(horizontal = 20.dp)
-                )
+            
+            if (qrLogos.isNotEmpty()) {
+                item {
+                    DividerContent(Modifier.padding(horizontal = 20.dp))
+                }
+                
+                item {
+                    AddLogoContent(
+                        qrLogos = qrLogos,
+                        state = state,
+                        onEvent = onEvent,
+                    )
+                }
             }
+            
             item {
-                AddLogoContent(
-                    state = state,
-                    onEvent = onEvent,
-                )
-            }
-            item {
-                Spacer(modifier = Modifier.height(70.dp))
+                Spacer(Modifier.height(70.dp))
             }
         }
 
@@ -406,6 +412,7 @@ private fun CornerStyleContent(
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun AddLogoContent(
+    qrLogos: List<QrLogo>,
     state: CustomizeState,
     onEvent: (CustomizeEvent) -> Unit,
 ) {
@@ -420,14 +427,14 @@ private fun AddLogoContent(
         FlowRow(
             modifier = Modifier.padding(14.dp)
         ) {
-            state.logos.forEach {
+            qrLogos.forEach {
                 Box(
                     modifier = Modifier
                         .size(52.dp)
                         .clip(CircleShape)
                         .border(
                             width = 2.dp,
-                            color = if (it == state.selectedLogo) {
+                            color = if (it.name == state.selectedLogo) {
                                 MaterialTheme.colorScheme.primary
                             } else {
                                 Color.Transparent
@@ -438,7 +445,7 @@ private fun AddLogoContent(
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
-                        imageVector = it,
+                        imageVector = it.vector,
                         contentDescription = null,
                         modifier = Modifier
                             .size(40.dp)

@@ -223,7 +223,7 @@ private fun HistoryContentItem(
             )
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(Modifier.height(16.dp))
 
         if (!lastItem) {
             DividerContent()
@@ -281,7 +281,7 @@ private fun HistoryNotFoundContent(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(Modifier.weight(1f))
 
         Image(
             imageVector = if (scanned) AppIcons.scannedHistory else AppIcons.createdHistory,
@@ -322,6 +322,6 @@ private fun HistoryNotFoundContent(
             }
         )
 
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(Modifier.weight(1f))
     }
 }

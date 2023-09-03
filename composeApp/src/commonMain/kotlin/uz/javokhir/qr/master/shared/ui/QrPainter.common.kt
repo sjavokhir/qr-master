@@ -8,5 +8,5 @@ import uz.javokhir.qr.master.data.model.common.QrCustomizeModel
 expect fun rememberQrBitmap(
     content: String,
     customize: QrCustomizeModel,
-    size: Int = 512,
+    size: Int = 1024,
 ): ImageBitmap?
